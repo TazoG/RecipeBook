@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @State private var showingAddRecipe = false
+
     let recipes = Recipe.samples
 
     var body: some View {
@@ -29,6 +32,18 @@ struct ContentView: View {
             .navigationTitle("Recipes")
             .navigationDestination(for: Recipe.self) { recipe in
                 RecipeDetailView(recipe: recipe)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingAddRecipe = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $showingAddRecipe) {
+                AddRecipeView()
             }
         }
     }
