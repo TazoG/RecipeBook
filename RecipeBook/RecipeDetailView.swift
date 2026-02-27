@@ -83,6 +83,7 @@ struct RecipeDetailView: View {
                     }
                 }
             }
+            .padding()
             .navigationTitle("Recipe")
             .navigationBarTitleDisplayMode(.inline)
         }

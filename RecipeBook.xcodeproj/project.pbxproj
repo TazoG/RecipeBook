@@ -13,6 +13,7 @@
 		DA9F10A62F50C5260061D2C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA9F10A52F50C5260061D2C7 /* Preview Assets.xcassets */; };
 		DA9F10AD2F50CD350061D2C7 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F10AC2F50CD350061D2C7 /* Recipe.swift */; };
 		DA9F10AF2F51D72C0061D2C7 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F10AE2F51D72C0061D2C7 /* RecipeDetailView.swift */; };
+		DA9F10B12F520AA90061D2C7 /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F10B02F520AA90061D2C7 /* AddRecipeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		DA9F10A52F50C5260061D2C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA9F10AC2F50CD350061D2C7 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		DA9F10AE2F51D72C0061D2C7 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		DA9F10B02F520AA90061D2C7 /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				DA9F10A42F50C5260061D2C7 /* Preview Content */,
 				DA9F10AC2F50CD350061D2C7 /* Recipe.swift */,
 				DA9F10AE2F51D72C0061D2C7 /* RecipeDetailView.swift */,
+				DA9F10B02F520AA90061D2C7 /* AddRecipeView.swift */,
 			);
 			path = RecipeBook;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				DA9F10A12F50C5240061D2C7 /* ContentView.swift in Sources */,
 				DA9F109F2F50C5240061D2C7 /* RecipeBookApp.swift in Sources */,
 				DA9F10AF2F51D72C0061D2C7 /* RecipeDetailView.swift in Sources */,
+				DA9F10B12F520AA90061D2C7 /* AddRecipeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
