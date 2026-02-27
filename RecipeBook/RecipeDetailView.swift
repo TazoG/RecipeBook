@@ -49,15 +49,36 @@ struct RecipeDetailView: View {
                 Divider()
 
                 VStack(alignment: .leading, spacing: 10) {
+                    Text("Ingredients")
+                        .font(.headline)
+
+                    ForEach(recipe.ingredients, id: \.self) { ingredient in
+                        HStack(alignment: .top, spacing: 8) {
+                            Image(systemName: "circle.fill")
+                                .font(.system(size: 6))
+                                .padding(.top, 6)
+
+                            Text(ingredient)
+                        }
+                    }
+                }
+
+                Divider()
+
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Instructions")
                         .font(.headline)
 
-                    ForEach(Array(recipe.instructions.enumerated()), id: \.offset) { index, step in
+                    ForEach(recipe.instructions.indices, id: \.self) { index in
                         HStack(alignment: .top, spacing: 8) {
+                            Image(systemName: "circle.fill")
+                                .font(.system(size: 6))
+                                .padding(.top, 6)
+
                             Text("\(index + 1).")
                                 .fontWeight(.semibold)
 
-                            Text(step)
+                            Text(recipe.instructions[index])
                         }
                     }
                 }
