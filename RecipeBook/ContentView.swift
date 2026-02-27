@@ -10,8 +10,7 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var showingAddRecipe = false
-
-    let recipes = Recipe.samples
+    @State private var recipes = Recipe.samples
 
     var body: some View {
         NavigationStack {
@@ -43,7 +42,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingAddRecipe) {
-                AddRecipeView()
+                AddRecipeView(recipes: $recipes)
             }
         }
     }

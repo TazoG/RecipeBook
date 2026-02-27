@@ -11,6 +11,8 @@ struct AddRecipeView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    @Binding var recipes: [Recipe]
+
     @State private var name: String = ""
     @State private var description: String = ""
     @State private var selectedCategory: RecipeCategory = .dinner
@@ -71,11 +73,45 @@ struct AddRecipeView: View {
     }
 
     private func saveAndDismiss() {
-        // Saving logic later
+
+        let ingredients = ingredientsText
+            .components(separatedBy: "\n")
+            .filter { !$0.isEmpty }
+
+        let instructions = instructionsText
+            .components(separatedBy: "\n")
+            .filter { !$0.isEmpty }
+
+        let newRecipe = Recipe(
+            name: name,
+            description: description,
+            ingredients: ingredients,
+            instructions: instructions,
+            image: nil,
+            category: selectedCategory,
+            cookTime: cookingTime,
+            servings: servings,
+            dateCreated: Date()
+        )
+
+        recipes.append(newRecipe)
+
         dismiss()
     }
 }
 
 #Preview {
-    AddRecipeView()
+    let sample = Recipe(
+        name: "Sample Recipe",
+        description: "Preview description",
+        ingredients: ["1 cup flour", "2 eggs"],
+        instructions: ["Mix", "Bake"],
+        image: nil,
+        category: .dinner,
+        cookTime: "30",
+        servings: "4",
+        dateCreated: Date()
+    )
+    
+    return AddRecipeView(recipes: .constant([sample]))
 }
