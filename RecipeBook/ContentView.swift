@@ -8,14 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    let recipes = Recipe.samples
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List(recipes) { recipe in
+
+                NavigationLink(value: recipe) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text( recipe.name)
+                            .font(.headline)
+
+                        Text(recipe.description)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+            .navigationTitle("Recipes")
+            .navigationDestination(for: Recipe.self) { recipe in
+                RecipeDetailView(recipe: recipe)
+            }
         }
-        .padding()
     }
 }
 
