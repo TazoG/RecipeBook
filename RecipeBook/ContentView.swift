@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-
+    
+    @State private var searchText = ""
     @State private var showingAddRecipe = false
     @State private var recipes = Recipe.samples
 
+    var filteredRecipes: [Recipe] {
+        if searchText.isEmpty {
+            return recipes
+        }
+
+        return recipes.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+
     var body: some View {
         NavigationStack {
-            List(recipes) { recipe in
+            List(filteredRecipes) { recipe in
 
                 NavigationLink(value: recipe) {
                     VStack(alignment: .leading, spacing: 4) {
@@ -28,6 +39,7 @@ struct ContentView: View {
                     .padding(.vertical, 4)
                 }
             }
+            .searchable(text: $searchText)
             .navigationTitle("Recipes")
             .navigationDestination(for: Recipe.self) { recipe in
                 RecipeDetailView(recipe: recipe)
