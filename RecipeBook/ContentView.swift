@@ -10,16 +10,22 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var searchText = ""
+    @State private var selectedCategory: RecipeCategory? = nil
     @State private var showingAddRecipe = false
     @State private var recipes = Recipe.samples
 
     var filteredRecipes: [Recipe] {
-        if searchText.isEmpty {
-            return recipes
-        }
+        recipes.filter { recipe in
 
-        return recipes.filter {
-            $0.name.localizedCaseInsensitiveContains(searchText)
+            let matchesSearch =
+            searchText.isEmpty ||
+            recipe.name.localizedCaseInsensitiveContains(searchText)
+
+            let matchesCategory =
+            selectedCategory == nil ||
+            recipe.category == selectedCategory
+
+            return matchesSearch && matchesCategory
         }
     }
 
@@ -44,7 +50,27 @@ struct ContentView: View {
             .navigationDestination(for: Recipe.self) { recipe in
                 RecipeDetailView(recipe: recipe)
             }
+            .sheet(isPresented: $showingAddRecipe) {
+                AddRecipeView(recipes: $recipes)
+            }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu {
+                        Button("All") {
+                            selectedCategory = nil
+                        }
+
+                        ForEach(RecipeCategory.allCases, id: \.self) { category in
+                            Button(category.rawValue.capitalized) {
+                                selectedCategory = category
+                            }
+                        }
+
+                    } label: {
+                        Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                    }
+                }
+
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showingAddRecipe = true
@@ -52,9 +78,6 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     }
                 }
-            }
-            .sheet(isPresented: $showingAddRecipe) {
-                AddRecipeView(recipes: $recipes)
             }
         }
     }
