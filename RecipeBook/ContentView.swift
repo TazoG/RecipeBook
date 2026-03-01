@@ -84,4 +84,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: Recipe.self, inMemory: true)
 }

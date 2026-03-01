@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddRecipeView: View {
 
     @Environment(\.dismiss) private var dismiss
-
-    @Binding var recipes: [Recipe]
+    @Environment(\.modelContext) private var modelContext
 
     @State private var name: String = ""
     @State private var description: String = ""
@@ -93,25 +93,14 @@ struct AddRecipeView: View {
             servings: servings,
             dateCreated: Date()
         )
-
-        recipes.append(newRecipe)
+        
+        modelContext.insert(newRecipe)
 
         dismiss()
     }
 }
 
 #Preview {
-    let sample = Recipe(
-        name: "Sample Recipe",
-        description: "Preview description",
-        ingredients: ["1 cup flour", "2 eggs"],
-        instructions: ["Mix", "Bake"],
-        image: nil,
-        category: .dinner,
-        cookTime: "30",
-        servings: "4",
-        dateCreated: Date()
-    )
-    
-    return AddRecipeView(recipes: .constant([sample]))
+    AddRecipeView()
+        .modelContainer(for: Recipe.self, inMemory: true)
 }

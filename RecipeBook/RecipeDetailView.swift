@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecipeDetailView: View {
     let recipe: Recipe
@@ -92,5 +93,25 @@ struct RecipeDetailView: View {
 
 
 #Preview {
-    RecipeDetailView(recipe: Recipe.samples[0])
+    let container = try! ModelContainer(
+        for: Recipe.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+
+    let sample = Recipe(
+        name: "Preview Pancakes",
+        description: "Preview recipe",
+        ingredients: ["Flour", "Eggs"],
+        instructions: ["Mix", "Cook"],
+        image: nil,
+        category: .breakfast,
+        cookTime: "10 min",
+        servings: "2",
+        dateCreated: Date()
+    )
+
+    container.mainContext.insert(sample)
+
+    return RecipeDetailView(recipe: sample)
+        .modelContainer(container)
 }
