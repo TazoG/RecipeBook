@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     
     @State private var searchText = ""
     @State private var selectedCategory: RecipeCategory? = nil
     @State private var showingAddRecipe = false
-    @State private var recipes = Recipe.samples
+    @Query private var recipes: [Recipe]
 
     var filteredRecipes: [Recipe] {
         recipes.filter { recipe in
@@ -35,10 +36,10 @@ struct ContentView: View {
 
                 NavigationLink(value: recipe) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text( recipe.name)
+                        Text(recipe.name)
                             .font(.headline)
 
-                        Text(recipe.description)
+                        Text(recipe.recipeDescription)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -51,14 +52,12 @@ struct ContentView: View {
                 RecipeDetailView(recipe: recipe)
             }
             .sheet(isPresented: $showingAddRecipe) {
-                AddRecipeView(recipes: $recipes)
+                AddRecipeView()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Menu {
-                        Button("All") {
-                            selectedCategory = nil
-                        }
+                        Button("All") { selectedCategory = nil }
 
                         ForEach(RecipeCategory.allCases, id: \.self) { category in
                             Button(category.rawValue.capitalized) {

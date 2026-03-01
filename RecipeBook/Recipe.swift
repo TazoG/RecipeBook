@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Recipe: Identifiable, Codable, Hashable {
-    var id = UUID()
+@Model
+class Recipe {
     var name: String
-    var description: String
+    var recipeDescription: String
     var ingredients: [String]
     var instructions: [String]
     var image: Data?
@@ -18,6 +19,28 @@ struct Recipe: Identifiable, Codable, Hashable {
     var cookTime: String
     var servings: String
     var dateCreated: Date
+
+    init(
+        name: String,
+        description: String,
+        ingredients: [String],
+        instructions: [String],
+        image: Data?,
+        category: RecipeCategory,
+        cookTime: String,
+        servings: String,
+        dateCreated: Date
+    ) {
+        self.name = name
+        self.recipeDescription = description
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.image = image
+        self.category = category
+        self.cookTime = cookTime
+        self.servings = servings
+        self.dateCreated = dateCreated
+    }
 }
 
 enum RecipeCategory: String, CaseIterable, Codable {
