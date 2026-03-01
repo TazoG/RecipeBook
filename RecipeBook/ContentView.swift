@@ -9,7 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    
+
+    @Environment(\.modelContext) private var modelContext
+
     @State private var searchText = ""
     @State private var selectedCategory: RecipeCategory? = nil
     @State private var showingAddRecipe = false
@@ -31,20 +33,24 @@ struct ContentView: View {
     }
 
     var body: some View {
+
         NavigationStack {
-            List(filteredRecipes) { recipe in
+            List {
+                ForEach(filteredRecipes) { recipe in
 
-                NavigationLink(value: recipe) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(recipe.name)
-                            .font(.headline)
+                    NavigationLink(value: recipe) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(recipe.name)
+                                .font(.headline)
 
-                        Text(recipe.recipeDescription)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            Text(recipe.recipeDescription)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(.vertical, 4)
                     }
-                    .padding(.vertical, 4)
                 }
+                .onDelete(perform: deleteRecipes)
             }
             .searchable(text: $searchText)
             .navigationTitle("Recipes")
@@ -79,6 +85,12 @@ struct ContentView: View {
                 }
             }
         }
+    }
+
+    private func deleteRecipes(at offsets: IndexSet) {
+        offsets
+            .map { filteredRecipes[$0] }
+            .forEach(modelContext.delete)
     }
 }
 

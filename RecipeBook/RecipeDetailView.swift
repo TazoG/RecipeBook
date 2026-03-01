@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct RecipeDetailView: View {
+
+    @State private var isEditing = false
+
     let recipe: Recipe
 
     var body: some View {
@@ -83,6 +86,14 @@ struct RecipeDetailView: View {
                         }
                     }
                 }
+            }
+            .toolbar {
+                Button("Edit") {
+                    isEditing = true
+                }
+            }
+            .sheet(isPresented: $isEditing) {
+                EditRecipeView(recipe: recipe)
             }
             .padding()
             .navigationTitle("Recipe")
